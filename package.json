@@ -1,12 +1,19 @@
 {
   "name": "binance-chain-bip84",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "version": "0.0.1",
+  "description": "Creates BIP84 keychains for Binance Chain mainnet and testnet",
+  "main": "./src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
+  "keywords": [
+    "bnb",
+    "binance",
+    "hd",
+    "wallet",
+    "chain",
+    "bip84"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {

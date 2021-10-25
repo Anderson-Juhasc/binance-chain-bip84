@@ -3,20 +3,7 @@ const { bip32 } = require('bitcoinjs-lib')
     , { ec: EC, curve } = require("elliptic")
     , BIP84 = require('bip84')
 
-// secp256k1 privkey is 32 bytes
-const PRIVKEY_LEN = 32
 const CURVE = "secp256k1"
-const HDPATH = "44'/714'/0'/0/"
-
-const getPublicKeyFromPrivateKey = (privateKeyHex) => {
-  if (!privateKeyHex || privateKeyHex.length !== PRIVKEY_LEN * 2) {
-    throw new Error("invalid privateKey")
-  }
-  const curve = new EC(CURVE)
-  const keypair = curve.keyFromPrivate(privateKeyHex, "hex")
-  const unencodedPubKey = keypair.getPublic().encode("hex", false)
-  return unencodedPubKey
-}
 
 const getAddressFromPublicKey = (
   publicKeyHex,
@@ -30,16 +17,6 @@ const getAddressFromPublicKey = (
   const hash = sha256ripemd160(hexed) // https://git.io/fAn8N
   const address = encodeAddress(hash, prefix)
   return address
-}
-
-const getAddressFromPrivateKey = (
-  privateKeyHex,
-  prefix
-) => {
-  return getAddressFromPublicKey(
-    getPublicKeyFromPrivateKey(privateKeyHex),
-    prefix
-  )
 }
 
 function fromMnemonic(mnemonic, password, isTestnet) {
