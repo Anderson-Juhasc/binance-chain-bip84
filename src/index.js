@@ -1,23 +1,7 @@
 const { bip32 } = require('bitcoinjs-lib')
-    , { ab2hexstring, sha256ripemd160, encodeAddress } = require('./utils')
+    , { getAddressFromPublicKey } = require('./utils')
     , { ec: EC, curve } = require("elliptic")
     , BIP84 = require('bip84')
-
-const CURVE = "secp256k1"
-
-const getAddressFromPublicKey = (
-  publicKeyHex,
-  prefix
-) => {
-  const ec = new EC(CURVE)
-  const pubKey = ec.keyFromPublic(publicKeyHex, "hex")
-  const pubPoint = pubKey.getPublic()
-  const compressed = pubPoint.encodeCompressed()
-  const hexed = ab2hexstring(compressed)
-  const hash = sha256ripemd160(hexed) // https://git.io/fAn8N
-  const address = encodeAddress(hash, prefix)
-  return address
-}
 
 function fromMnemonic(mnemonic, password, isTestnet) {
   BIP84.fromMnemonic.call(this, mnemonic, password, isTestnet, 714)

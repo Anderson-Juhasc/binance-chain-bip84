@@ -1,8 +1,9 @@
-const bech32 = require('bech32');
+const { bech32 } = require('bech32');
 const hexEncoding = require("crypto-js/enc-hex")
 const RIPEMD160 = require("crypto-js/ripemd160")
 const SHA256 = require("crypto-js/sha256")
 const SHA3 = require("crypto-js/sha3")
+const { ec: EC, curve } = require("elliptic")
 
 const ab2hexstring = (arr) => {
   if (typeof arr !== "object") {
@@ -40,8 +41,21 @@ const encodeAddress = (
   return bech32.encode(prefix, words)
 }
 
+const getAddressFromPublicKey = (
+  publicKeyHex,
+  prefix
+) => {
+  const CURVE = "secp256k1"
+  const ec = new EC(CURVE)
+  const pubKey = ec.keyFromPublic(publicKeyHex, "hex")
+  const pubPoint = pubKey.getPublic()
+  const compressed = pubPoint.encodeCompressed()
+  const hexed = ab2hexstring(compressed)
+  const hash = sha256ripemd160(hexed) // https://git.io/fAn8N
+  const address = encodeAddress(hash, prefix)
+  return address
+}
+
 module.exports = {
-  ab2hexstring,
-  sha256ripemd160,
-  encodeAddress
+  getAddressFromPublicKey
 }

@@ -1,6 +1,6 @@
 {
   "name": "binance-chain-bip84",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Creates BIP84 keychains for Binance Chain mainnet and testnet",
   "main": "./src/index.js",
   "repository": {
@@ -21,7 +21,7 @@
   "author": "Anderson Juhasc",
   "license": "ISC",
   "dependencies": {
-    "bech32": "^1.1.4",
+    "bech32": "^2.0.0",
     "bip84": "^0.2.6",
     "crypto-js": "^3.3.0",
     "elliptic": "^6.5.4"
