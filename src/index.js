@@ -1,6 +1,5 @@
 const { bip32 } = require('bitcoinjs-lib')
     , { getAddressFromPublicKey } = require('./utils')
-    , { ec: EC, curve } = require("elliptic")
     , BIP84 = require('bip84')
 
 function fromMnemonic(mnemonic, password, isTestnet) {
